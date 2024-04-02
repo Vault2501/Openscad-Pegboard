@@ -3,9 +3,10 @@ $fn=32;
 include <modules/module_sockets.scad>
 include <modules/module_pegs.scad>
 
-sockets         = [10,8,6,4,2,15];
-space           = 4;
-depth           = 10;
+sockets         = [30.5,26.5,24.5,20.5,18.5,17.5];
+//sockets       = [17.5,17.5,14.5,12.5,13,13,13,13];
+space           = 3;
+depth           = 12.5;
 angle           = 30;
 rows            = 1;
 
