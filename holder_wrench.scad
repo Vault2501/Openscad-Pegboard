@@ -1,5 +1,5 @@
-include <modules/module_wrench.scad>;
-include <modules/module_pegs.scad>;
+include <modules/module_wrench.scad>
+include <modules/module_pegs.scad>
 
 count=9;
 width=50;

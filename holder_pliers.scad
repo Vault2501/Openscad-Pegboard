@@ -1,10 +1,11 @@
 include <modules/module_pliers.scad>
 include <modules/module_pegs.scad>
 
-length=80;
-width=30;
-rows=1;
+width=80;
+height=38;
+depth=30;
+rows=2;
 
-pliers(length,width);
-pegs_lux(length,1);
+pliers(width,depth,height);
+pegs_lux(depth,rows);
 
