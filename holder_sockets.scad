@@ -1,6 +1,6 @@
 $fn=32;
 
-include <modules/module_socket.scad>
+include <modules/module_sockets.scad>
 include <modules/module_pegs.scad>
 
 sockets         = [10,8,6,4,2,15];

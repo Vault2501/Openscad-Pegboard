@@ -8,4 +8,4 @@ rows=5;
 
 
 wrench(count,width,angle);
-pegs_lidl(width,rows);
+pegs_lux(width,rows);
