@@ -4,7 +4,7 @@ module pegs_lux(width,rows)
     len_knob    = 3;
     dia_pin     = 4;
     wall        = 2;
-    dist        = 30.10;
+    dist        = 37;
     height      = 25;
     
     pegs(dist,height,wall,dia_knob,len_knob,dia_pin,rows);
@@ -17,7 +17,7 @@ module pegs_hornbach(width,rows)
     dia_pin     = 4;
     wall        = 2;
     dist        = 45;
-    height      = 25;
+    height      = 45;
     
     pegs(dist,height,wall,dia_knob,len_knob,dia_pin);
 }

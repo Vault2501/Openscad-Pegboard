@@ -1,8 +1,8 @@
 include <modules/module_pliers.scad>
 include <modules/module_pegs.scad>
 
-width=80;
-height=38;
+width=60;
+height=34;
 depth=30;
 rows=2;
 
