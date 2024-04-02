@@ -1,3 +1,5 @@
+$fn=32;
+
 include <modules/module_pliers.scad>
 include <modules/module_pegs.scad>
 
