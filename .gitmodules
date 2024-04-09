@@ -1,0 +1,3 @@
+[submodule "openscad-libraries"]
+	path = openscad-libraries
+	url = https://github.com/Vault2501/openscad-libraries.git
