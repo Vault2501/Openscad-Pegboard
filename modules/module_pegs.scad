@@ -4,7 +4,7 @@ module pegs_lux(width,rows)
     len_knob    = 3;
     dia_pin     = 4;
     wall        = 2;
-    dist        = 37;
+    dist        = 37.25;
     height      = 25;
     
     pegs(dist,height,wall,dia_knob,len_knob,dia_pin,rows);

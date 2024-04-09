@@ -1,12 +1,10 @@
 
 
-module wrench(count,width,angle)
+module wrench(count,width,gap,gap_growth,angle)
 {
     height=15;
     height_min=height;
     height_growth=1;
-    gap=5;
-    gap_growth=0.2;
     holder_width=10;
     holder_thickness=5;
     height_plate=14;
@@ -30,33 +28,36 @@ module wrench(count,width,angle)
     
     module holders()
     {
-        difference()
+        translate([0,0,0])
         {
-            for(num=[0:1:count-1])
+            difference()
             {
-                translate([0,0,num*(gap_min+(num*gap_growth)+holder_thickness)])
+                for(num=[0:1:count-1])
                 {
-                    difference()
+                    translate([0,-sin(abs(angle))*holder_thickness,num*(gap_min+(num*gap_growth)+holder_thickness)+holder_thickness/tan(abs(angle))])
                     {
-                        rotate([angle,0,0])
+                        difference()
                         {
-                            cube([holder_width,height_min+(height_growth*num),holder_thickness]);
-                        } 
-                        translate([0,
-                                   cos(angle)*(height_min+(height_growth*num))-sin(angle)*holder_thickness+1,
-                                   sin(angle)*(height_min+(height_growth*num))-tan(angle)*(sin(angle)*holder_thickness)])
-                        {
-                            #cube([holder_width,
-                                   sin(angle)*holder_thickness,
-                                   holder_thickness/cos(angle)]);
+                            rotate([angle,0,0])
+                            {
+                                cube([holder_width,height_min+(height_growth*num),holder_thickness]);
+                            } 
+                            translate([0,
+                                       cos(abs(angle))*(height_min+(height_growth*num))+1,
+                                       -sin(abs(angle))*(height_min+(height_growth*num))+(cos(abs(angle))*holder_thickness)-holder_thickness])
+                            {
+                                #cube([holder_width,
+                                       sin(abs(angle))*holder_thickness,
+                                       holder_thickness/cos(abs(angle))]);
+                            }
                         }
                     }
                 }
-            }
-            cutoff=10;
-            translate([0,-cutoff,0])
-            {
-                #cube([holder_width,cutoff,count*(gap_min+(count*gap_growth)+holder_thickness)]);
+                cutoff=10;
+                translate([0,-cutoff,0])
+                {
+                    cube([holder_width,cutoff,count*(gap_min+(count*gap_growth)+holder_thickness)]);
+                }
             }
         }
     }
