@@ -2,81 +2,25 @@ $fn=32;
 
 include <modules/module_screwdrivers.scad>
 include <modules/module_pegs.scad>
+include <openscad-libraries/functions.scad>
 
+handles_front=[9.8,9.8,12,12,12,12,12,12,12,12,12,12,12,12];
+factor_front=2;
+space_front=1;
+handles_back=[7.25,7.25,7.25,7.25,7.25,7.25,14,14,14,14,18,18,19];
+factor_back=3;
+space_back=1.7;
+thickness=10;
+depth_back=2;
 
-small_sockets_1 = [5.5,5.5,5.5,5.5,5.5];
-small_sockets_2 = [5.5,5.5,5.5,5.5];
-small_sockets_3 = [5.5,5.5,5.5];
-small_sockets_4 = [4,4];
-small_space     = 13;
+offy_front  = max(handles_back)+2*space_back+2*depth_back;
+width       = max(getSum(handles_front,gap=space_front)+space_front,getSum(handles_back,gap=space_back)+space_back);
+echo("width:", width);
 
-large_sockets_1 = [4,4,4];
-large_space_1   = 17;
-
-large_sockets_2 = [3,3,3];
-large_space_2   = 13;
-
-large_sockets_3 = [2,2,2];
-large_space_3   = 10;
-
-depth           = 5;
-rows            = 2;
-
-function get_width(length_vec,sockets,space) = length_vec[len(length_vec)-1]
-                                             + sockets[len(sockets)-1]
-                                             + space*(len(sockets)-1)
-                                             + 2*space;
-
-// calculate total length for connectors
-small_length_vec_1      = partialsum(small_sockets_1,0,len(small_sockets_1)-1);
-small_length_vec_2      = partialsum(small_sockets_2,0,len(small_sockets_2)-1);
-small_length_vec_3      = partialsum(small_sockets_3,0,len(small_sockets_3)-1);
-small_length_vec_4      = partialsum(small_sockets_4,0,len(small_sockets_4)-1);
-small_width_1       = get_width(small_length_vec_1,small_sockets_1,small_space);
-small_width_2       = get_width(small_length_vec_2,small_sockets_2,small_space);
-small_width_3       = get_width(small_length_vec_3,small_sockets_3,small_space);
-small_width_4       = get_width(small_length_vec_4,small_sockets_4,small_space);
-small_width         = small_width_1+small_width_2+small_width_3+small_width_4;
-             
-large_length_vec_1      = partialsum(large_sockets_1,0,len(large_sockets_1)-1);
-large_length_vec_2      = partialsum(large_sockets_2,0,len(large_sockets_2)-1);
-large_length_vec_3      = partialsum(large_sockets_3,0,len(large_sockets_3)-1);  
-large_width_1       = get_width(large_length_vec_1,large_sockets_1,large_space_1);
-large_width_2       = get_width(large_length_vec_2,large_sockets_2,large_space_2);
-large_width_3       = get_width(large_length_vec_3,large_sockets_3,large_space_3);
-large_width         = large_width_1+large_width_2+large_width_3;
-             
-width = max(small_width,large_width);
-
-#translate([0,
-           3/2*max(large_space_1,large_space_3,large_space_3)+max(len(large_length_vec_1),len(large_length_vec_2),len(large_length_vec_3)),
-           0])
+translate([0,offy_front,0])
 {
-    screwdrivers(small_sockets_1,small_space,depth,gap=true);
-    translate([small_width_1,0,0])
-    {
-        screwdrivers(small_sockets_2,small_space,depth,gap=true);
-    }
-    translate([small_width_2+small_width_1,0,0])
-    {
-        screwdrivers(small_sockets_3,small_space,depth,gap=true);
-    }
-    translate([small_width_3+small_width_2+small_width_1,0,0])
-    {
-        screwdrivers(small_sockets_4,small_space,depth,gap=true);
-    }
+    screwdriver(array=handles_front,gap=space_front,height=thickness,depth=0,width=width,open=true,back=false,factor=factor_front);
 }
+screwdriver(array=handles_back,gap=space_back,height=thickness,depth=0,width=width,open=false,back=true,factor=factor_back);
+pegs_lux(width,2);
 
-screwdrivers(large_sockets_1,large_space_1,depth,gap=false);
-translate([large_width_1,0,0])
-{
-    screwdrivers(large_sockets_2,large_space_2,depth,gap=false);
-}
-translate([large_width_2+large_width_1,0,0])
-{
-    screwdrivers(large_sockets_3,large_space_3,depth,gap=false);
-}
-
-
-pegs_lux(width,rows);
-cube([width,depth,34]);
